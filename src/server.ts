@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { userController } from './controllers/user.controller';
-import { colorController } from './controllers/color.controller';
+import { usersRoutes } from './routes/users.routes';
+import { colorsRoutes } from './routes/colors.routes';
 
 const PORT = 5000;
 const CLIENT_URL = 'http://localhost:3000';
@@ -16,12 +16,9 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get('/users', userController.getAll);
+app.use(usersRoutes);
 
-app.post('/users', userController.create);
+app.use(colorsRoutes);
 
-app.get('/users/:id', userController.findById);
-
-app.get('/colors', colorController.findAll);
 
 app.listen(PORT, () => console.log(`API is ready on http://localhost:${PORT}`));
