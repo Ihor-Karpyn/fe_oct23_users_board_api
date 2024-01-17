@@ -2,9 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import { usersRoutes } from './routes/users.routes';
 import { colorsRoutes } from './routes/colors.routes';
+import dotenv from 'dotenv';
 
-const PORT = 5000;
-const CLIENT_URL = 'http://localhost:3000';
+dotenv.config();
+
+const PORT = process.env.PORT;
+const CLIENT_URL = process.env.CLIENT_URL;
+const API_URL = process.env.API_URL;
 
 const app = express();
 
@@ -21,4 +25,4 @@ app.use(usersRoutes);
 app.use(colorsRoutes);
 
 
-app.listen(PORT, () => console.log(`API is ready on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`API is ready on ${API_URL}:${PORT}`));
