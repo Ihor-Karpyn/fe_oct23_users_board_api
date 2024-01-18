@@ -1,30 +1,17 @@
-import { User } from '../typedefs/user.typedefs';
-import { getNewId } from '../helpers/getNewId';
-
-export let users: User[] = [
-  { id: 1, name: 'Joe Biden', carColorId: 5 },
-  { id: 2, name: 'Elon Musk', carColorId: 4 },
-  { id: 3, name: 'Pan Roman', carColorId: 2 },
-];
+import { User } from '../models/User';
 
 type CreateOptions = Pick<User, 'carColorId' | 'name'>
 
-const findAll = () => users;
+const findAll = async () => {
+  return User.findAll();
+}
 
-const findById = (id: number) => (
-  users.find((user) => user.id === id)
-);
+const findById = async (id: number) => {
+  return User.findByPk(id);
+};
 
-const create = (options: CreateOptions) => {
-  const newUserId = getNewId(users);
-  const newUser = {
-    ...options,
-    id: newUserId,
-  }
-
-  users = [...users, newUser];
-
-  return newUser;
+const create = (options: CreateOptions): Promise<User> => {
+  return User.create(options, { returning: true });
 }
 
 export const userService = {

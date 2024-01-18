@@ -1,22 +1,24 @@
-import { Color } from '../typedefs/color.typedefs';
+import { Color } from '../models/Color';
 
-export const colors: Color[] = [
-  { id: 1, name: 'Black' },
-  { id: 2, name: 'DeepPink' },
-  { id: 3, name: 'Red' },
-  { id: 4, name: 'Aquamarine' },
-  { id: 5, name: 'Gold' },
-  { id: 6, name: 'YellowGreen' },
-  { id: 7, name: 'Yellow' },
-];
-
-const findAll = () => colors;
+const findAll = () => {
+  return Color.findAll();
+}
 
 const findById = (id: number) => (
-  colors.find((color) => color.id === id)
+  Color.findByPk(id)
 );
+
+const create = (options: { name: string }) => {
+  return Color.create(options, { returning: true });
+}
+
+const bulkCreate = (options: { name: string }[]) => {
+  return Color.bulkCreate(options, { returning: true });
+}
 
 export const colorService = {
   findAll,
-  findById
+  findById,
+  create,
+  bulkCreate,
 }

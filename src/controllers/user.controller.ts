@@ -3,13 +3,13 @@ import { userService } from '../services/user.sevice';
 import { isValidId } from '../helpers/isValidId';
 import { colorService } from '../services/color.service';
 
-const getAll: Controller = (req, res) => {
-  const users = userService.findAll();
+const getAll: Controller = async (req, res) => {
+  const users = await userService.findAll();
 
   res.send(users)
 };
 
-const findById: Controller = (req, res) => {
+const findById: Controller = async (req, res) => {
   const { id: idParams } = req.params;
   const id = Number(idParams);
 
@@ -18,7 +18,7 @@ const findById: Controller = (req, res) => {
     return;
   }
 
-  const user = userService.findById(id);
+  const user = await userService.findById(id);
 
   if (!user) {
     res.sendStatus(404);
@@ -28,7 +28,7 @@ const findById: Controller = (req, res) => {
   res.send(user);
 };
 
-const create: Controller = (req, res) => {
+const create: Controller = async (req, res) => {
   const params = req.body;
 
   const name = params.name;
@@ -44,14 +44,14 @@ const create: Controller = (req, res) => {
     return;
   }
 
-  const color = colorService.findById(carColorId);
+  const color = await colorService.findById(carColorId);
 
   if (!color) {
     res.status(404).send('Color not found');
     return;
   }
 
-  const newUser = userService.create({
+  const newUser = await userService.create({
     name,
     carColorId,
   });
