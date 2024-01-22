@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "npm run db-sync; nodemon src/server.ts",
     "build": "tsc",
-    "start": "node ./build/server.js",
+    "start": "npm run db-sync; node ./build/server.js",
     "db": "psql postgres://admin@dpg-cmkdt721hbls73a04je0-a.frankfurt-postgres.render.com/oct23_user_boards",
-    "db-sync": "ts-node src/utils/syncDbTables.ts"
+    "seed": "npx sequelize-cli db:seed:all",
+    "migrate": "npx sequelize-cli db:migrate",
+    "db-sync": "npm run migrate; npm run seed"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "@types/node": "^20.11.5",
     "@types/validator": "^13.11.8",
     "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
