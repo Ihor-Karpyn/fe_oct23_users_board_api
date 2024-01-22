@@ -2,22 +2,14 @@
 
 const TABLE_NAME = 'colors';
 
-const initialColors = [
-  { name: 'Black' },
-  { name: 'DeepPink' },
-  { name: 'Red' },
-  { name: 'Aquamarine' },
-  { name: 'Gold' },
-  { name: 'YellowGreen' },
-  { name: 'Yellow' },
-];
+const colors = require('./20240122083804-add-colors.json');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
       TABLE_NAME,
-      initialColors,
+      colors,
     )
   },
 
@@ -25,7 +17,7 @@ module.exports = {
     await queryInterface.bulkDelete(
       TABLE_NAME,
       {
-        name: initialColors.map(color => color.name)
+        name: colors.map(color => color.name)
       }
     )
   }
