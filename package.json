@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run db-sync; nodemon src/server.ts",
-    "build": "tsc",
-    "start": "npm run db-sync; node ./build/server.js",
+    "dev": "nodemon src/server.ts",
+    "build": "npm run db-sync; tsc",
+    "start": "node ./build/server.js",
     "db": "psql postgres://admin@dpg-cmkdt721hbls73a04je0-a.frankfurt-postgres.render.com/oct23_user_boards",
     "seed": "npx sequelize-cli db:seed:all",
     "migrate": "npx sequelize-cli db:migrate",
