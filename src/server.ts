@@ -17,10 +17,10 @@ const server = async () => {
 
 server();
 
-const user = {
+const variable = {
   id: 1,
   name: 'Artur',
 }
 
-console.log(user);
+console.log(variable);
 
