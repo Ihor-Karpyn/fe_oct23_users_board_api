@@ -1,12 +1,95 @@
-import { Controller } from '../typedefs/typedfs';
+import { Controller, SortOrder } from '../typedefs/typedfs';
 import { userService } from '../services/user.sevice';
 import { isValidId } from '../helpers/isValidId';
 import { colorService } from '../services/color.service';
 
-const getAll: Controller = async (req, res) => {
-  const users = await userService.findAll();
+const getSortKey = (sortByParams: string) => {
+  switch (sortByParams) {
+    case 'name':
+      return 'name';
 
-  res.send(users)
+    case 'id':
+      return 'id';
+
+    default:
+      return undefined;
+  }
+}
+
+const getSortOrder = (sortOrderParams: string): SortOrder | undefined => {
+  switch (sortOrderParams) {
+    case 'ASC':
+      return SortOrder.ASC;
+
+    case 'DESC':
+      return SortOrder.DESC;
+
+    default:
+      return  undefined;
+  }
+}
+
+
+const getAll: Controller = async (req, res) => {
+  const {
+    limit: limitParams,
+    offset: offsetParams,
+    sortBy: sortByParams,
+    sortOrder: sortOrderParams,
+  } = req.query;
+
+  const isLimitPassed = typeof limitParams === 'string';
+  const limit = isLimitPassed
+    ? Number(limitParams)
+    : undefined;
+
+  if (isLimitPassed && !isValidId(limit)) {
+    res.status(400).send('Invalid limit');
+
+    return;
+  }
+
+  const isOffsetPassed = typeof offsetParams === 'string';
+  const offset = isOffsetPassed
+    ? Number(offsetParams)
+    : undefined;
+
+  if (isOffsetPassed && !isValidId(offset)) {
+    res.status(400).send('Invalid offset');
+
+    return;
+  }
+
+  const isSortPassed = typeof sortByParams === 'string';
+  const sortBy = isSortPassed
+    ? getSortKey(sortByParams)
+    : undefined;
+
+  if (isSortPassed && !sortBy) {
+    res.status(400).send('Invalid sortBy');
+
+    return;
+  }
+
+  const isSortOrderPassed = typeof sortOrderParams === 'string';
+  const sortOrder = isSortOrderPassed
+    ? getSortOrder(sortOrderParams)
+    : undefined;
+
+  if (isSortOrderPassed && !sortOrder) {
+    res.status(400).send('Invalid sortOrder');
+
+    return;
+  }
+
+  const usersData = await userService.findAndCountAll({
+    limit,
+    offset,
+    sortBy,
+    sortOrder,
+  });
+
+  res.send(usersData)
 };
 
 const findById: Controller = async (req, res) => {
