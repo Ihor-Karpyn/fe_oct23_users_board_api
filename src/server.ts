@@ -19,6 +19,7 @@ server()
 
 const variable = {
   id: 1,
+  name: 'Artur',
 }
 
 console.log(variable);
