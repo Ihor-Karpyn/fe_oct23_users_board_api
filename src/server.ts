@@ -30,5 +30,10 @@ const variable2 = {
 
 console.log(variable2);
 
+const variable = {
+  id: 1,
+  name: 'Artur',
+}
 
+console.log(variable);
 
