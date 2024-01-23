@@ -17,5 +17,10 @@ const server = async () => {
 
 server();
 
+const user = {
+  id: 1,
+  name: 'Artur',
+}
 
+console.log(user);
 
