@@ -15,7 +15,20 @@ const server = async () => {
   app.listen(PORT, () => console.log(`API is ready on ${API_URL}:${PORT}`));
 }
 
-server();
+server()
+
+const variable = {
+  id: 1,
+}
+
+console.log(variable);
+
+const variable2 = {
+  ...variable,
+  lastName: 'Morgan',
+}
+
+console.log(variable2);
 
 
 
