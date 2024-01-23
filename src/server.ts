@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { initExpressApp } from './initExpressApp';
 import { connectToDb } from './db';
+import { isValidId } from './helpers/isValidId';
 
 dotenv.config();
 
@@ -20,7 +21,10 @@ server()
 const variable = {
   id: 1,
   lastName: 'Artur',
+  name: 'Artur'
 }
 
 console.log(variable);
+
+console.log(isValidId(1));
 
