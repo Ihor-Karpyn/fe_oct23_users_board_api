@@ -23,17 +23,3 @@ const variable = {
 
 console.log(variable);
 
-const variable2 = {
-  ...variable,
-  lastName: 'Morgan',
-}
-
-console.log(variable2);
-
-const variable = {
-  id: 1,
-  name: 'Artur',
-}
-
-console.log(variable);
-
