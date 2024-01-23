@@ -21,5 +21,14 @@ const variable = {
   id: 1,
 }
 
+console.log(variable);
+
+const variable2 = {
+  ...variable,
+  lastName: 'Morgan',
+}
+
+console.log(variable2);
+
 
 
